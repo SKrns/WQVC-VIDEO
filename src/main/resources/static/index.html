@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pororo WebRTC</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .container {
+        background: rgb(148, 144, 144);
+        margin: 50px auto;
+        max-width: 80%;
+        text-align: center;
+        padding: 2%;
+    }
+
+    button {
+        margin: 1em;
+    }
+
+    input {
+        margin-top: 1em;
+    }
+
+    .footer {
+        background: rgb(148, 144, 144);
+        text-align: center;
+        padding: 2%;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+</style>
+<body>
+<div class="container">
+    <h1> WebRTC </h1>
+
+    <h3>
+        1. 서버 접속<br> 2. 보내기 <br>3. 브라우저 콘솔 확인하기<br> TODO : 웹캠,마이크 화상강의
+    </h3>
+
+    <!--WebRTC related code-->
+    <button type="button" class="btn btn-primary" onclick='createOffer()'>서버 접속</button>
+    <input id="messageInput" type="text" class="form-control"
+           placeholder="message">
+    <button type="button" class="btn btn-primary" onclick='sendMessage()'>보내기</button>
+    <h4 id="area"></h4>
+    <script src="client.js"></script>
+    <!--WebRTC related code-->
+
+</div>
+<div class="footer">Codes from https://www.baeldung.com/webrtc</div>
+</body>
+</html>
