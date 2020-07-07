@@ -100,7 +100,6 @@ function handleOffer(offer) {
     }, function(error) {
         alert("Error creating an answer");
     });
-
 };
 
 function handleCandidate(candidate) {
@@ -117,6 +116,7 @@ function sendMessage(){
     input.value = "";
 }
 
+//이 함수에서 부터 시
 function setVideo(){
     getStream('video');
     getStream('audio');

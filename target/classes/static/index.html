@@ -45,20 +45,22 @@
     </h3>
 
     <!--WebRTC related code-->
+    <!---
     <button type="button" class="btn btn-primary" onclick='createOffer()'>서버 접속</button>
     <input id="messageInput" type="text" class="form-control"
            placeholder="message">
     <button type="button" class="btn btn-primary" onclick='sendMessage()'>보내기</button>
     <h4 id="area"></h4>
+    -->
 
     <button type ="button" class="btn btn-primary" onclick="setVideo()">비디오 시작</button>
 
-    <video controls autoplay style="height: 180px; width: 240px;"></video>
-    <audio controls></audio>
+    <video id="localVideo" autoplay playsinline></video>
+    <video id="callButton" autoplay playsinline></video>
+
     <script src="client.js"></script>
     <!--WebRTC related code-->
 
 </div>
-<div class="footer">Codes from https://www.baeldung.com/webrtc</div>
 </body>
 </html>
