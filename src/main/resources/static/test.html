@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>getMediaTEST</title>
+</head>
+<body>
+<script type="text/javascript">
+    async function hi(){
+        var constraints = { audio: true, video: true };
+
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function(mediaStream) {
+                var video = document.querySelector('video');
+                video.srcObject = mediaStream;
+                video.onloadedmetadata = function(e) {
+                    video.play();
+                };
+            })
+            .catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
+
+    }
+
+
+    async function getMedia() {
+        let stream = null;
+        let constraints = { audio: true, video: true };
+
+        try {
+            stream = await navigator.mediaDevices.getUserMedia(constraints);
+            var video = document.querySelector('video');
+            video.srcObject = stream;
+            video.onloadedmetadata = function(e) {
+                video.play();
+            };
+        } catch(err) {
+            /* 오류 처리 */
+        }
+    }
+
+    getMedia().then(function(){console.log('sadsadadsdadsas')});
+    // Prefer camera resolution nearest to 1280x720.
+
+
+</script>
+<video></video>
+</body>
+</html>

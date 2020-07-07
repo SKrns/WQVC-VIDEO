@@ -42,6 +42,7 @@
             }
         }
 
+
         // setup new meeting room
         this.setup = function(roomid) {
             getMedia().then(function(){
@@ -62,6 +63,8 @@
                 });
             });
         };
+
+
 
         // check pre-created meeting rooms
         this.check = initSignaler;
