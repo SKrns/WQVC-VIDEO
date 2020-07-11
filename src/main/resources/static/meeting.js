@@ -17,32 +17,19 @@
             signaler = new Signaler(self);
         }
 
-        function captureUserMedia(callback) {
-            var constraints = {
-                audio: true,
-                video: true
-            };
-
-            navigator.mediaDevices.getUserMedia(constraints, onstream, onerror);
-            //edited only for chrome
-            //navigator.webkitGetUserMedia(constraints,onstream,onerror);
-            function onstream(stream) {
+        async function getMedia() {
+            let stream = null;
+            let constraints = { audio: true, video: true };
+            try {
+                stream = await navigator.mediaDevices.getUserMedia(constraints);
                 self.stream = stream;
-                callback(stream);
-
-                var video = document.createElement('video');
+                let video = document.createElement('video');
                 video.id = 'self';
-                //video[isFirefox ? 'mozSrcObject' : 'src'] = isFirefox ? stream : window.URL.createObjectURL(stream);
-                try{
-                    video['srcObject'] = stream;
-                }
-                catch (error) {
-                    video['src'] = window.URL.createObjectURL(stream);
-                }
-                //video['src'] = window.URL.createObjectURL(stream);
+                video.srcObject = stream;
+
                 video.autoplay = true;
                 video.controls = true;
-                video.play();
+                await video.play();
 
                 self.onaddstream({
                     video: video,
@@ -50,16 +37,15 @@
                     userid: 'self',
                     type: 'local'
                 });
-            }
-
-            function onerror(e) {
-                console.error(e);
+            } catch(err) {
+                /* 오류 처리 */
             }
         }
 
+
         // setup new meeting room
         this.setup = function(roomid) {
-            captureUserMedia(function(){
+            getMedia().then(function(){
                 !signaler && initSignaler();
                 signaler.broadcast({
                     roomid: roomid || self.channel
@@ -69,7 +55,7 @@
 
         // join pre-created meeting room
         this.meet = function(room) {
-            captureUserMedia(function() {
+            getMedia().then(function() {
                 !signaler && initSignaler();
                 signaler.join({
                     to: room.userid,
@@ -77,6 +63,8 @@
                 });
             });
         };
+
+
 
         // check pre-created meeting rooms
         this.check = initSignaler;
@@ -322,7 +310,7 @@
     var RTCSessionDescription = window.RTCSessionDescription || window.mozRTCSessionDescription;
     var RTCIceCandidate = window.RTCIceCandidate || window.mozRTCIceCandidate;
 
-    navigator.mediaDevices.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
+    // navigator.mediaDevices.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
     window.URL = window.URL || window.webkitURL;
 
     var isFirefox = !!navigator.mozGetUserMedia;
