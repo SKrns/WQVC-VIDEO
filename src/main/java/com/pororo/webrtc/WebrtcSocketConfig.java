@@ -12,7 +12,7 @@ public class WebrtcSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
-        webSocketHandlerRegistry.addHandler(new SocketHandler(),"/socket")
+        webSocketHandlerRegistry.addHandler(new SocketHandler(),"/")
                 .setAllowedOrigins("*");
     }
 }
