@@ -4,6 +4,7 @@ var localUuid;
 var localDisplayName;
 var localStream;
 var serverConnection;
+var room;
 var peerConnections = {}; // key is uuid, values are peer connection object and user defined display name string
 
 var peerConnectionConfig = {
@@ -13,15 +14,14 @@ var peerConnectionConfig = {
   ]
 };
 
-var room = 'foo';
-room = prompt('Enter room name');
 
 function start() {
   localUuid = createUUID();
 
   // check if "&displayName=xxx" is appended to URL, otherwise alert user to populate
   var urlParams = new URLSearchParams(window.location.search);
-  localDisplayName = urlParams.get('displayName') || prompt('Enter your name', '');
+  room = urlParams.get('roomName') || prompt('Enter room name','guestRoom');
+  localDisplayName = urlParams.get('userName') || prompt('Enter your name', 'guest');
   document.getElementById('localVideoContainer').appendChild(makeLabel(localDisplayName));
 
   // specify no audio for user media
