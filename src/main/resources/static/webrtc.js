@@ -1,4 +1,4 @@
-const WS_PORT = 8080; //make sure this matches the port for the webscokets server
+const WS_PORT = 7001; //make sure this matches the port for the webscokets server
 
 var localUuid;
 var localDisplayName;
@@ -24,8 +24,6 @@ function start() {
   //room = urlParams.get('roomName') || prompt('Enter room name','guestRoom');
   localDisplayName = urlParams.get('userName') || prompt('Enter your name', 'guest');
 
-  room = '1';
-  //localDisplayName = 'root';
 
   document.getElementById('localVideoContainer').appendChild(makeLabel(localDisplayName));
 
@@ -120,7 +118,6 @@ function createdDescription(description, peerUuid) {
 function gotRemoteStream(event, peerUuid) {
 
   for(const i in remoteStream){
-    console.log(remoteStream[i] + " : " + peerUuid);
     if(remoteStream[i] === peerUuid){
       return;
     }
