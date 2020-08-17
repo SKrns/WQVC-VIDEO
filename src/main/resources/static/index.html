@@ -9,22 +9,138 @@
 
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
   <script src="webrtc.js"></script>
-</head>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
+    .navbar {
+      overflow: hidden;
+      background-color: #333;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .navbar a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+
+    .navbar a:hover {
+      background: #f1f1f1;
+      color: black;
+    }
+
+    .navbar a.active {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .main {
+      padding: 16px;
+      margin-bottom: 30px;
+    }
+
+    .button {
+      background-color: #4CAF50; /* Green */
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+
+    .button1:hover {
+      background-color: white;
+      color: black;
+      border: 2px solid #4CAF50;
+    }
+  </style>
+</head>
 <body>
+  <div id="localVideoContainer" style="position: absolute; height: 60%; width: 100%; bottom: 7%">
+    <video id="localVideo" autoplay style="height: 100%; width: 100%"></video>
+  </div>
 
   <div id="videos" class="videos">
-
-    <div id="localVideoContainer" class="videoContainer">
-      <video id="localVideo" autoplay muted></video>
-    </div>
-
-    <!-- Remote videos get appended here -->
-    
+  </div>
+  <div class="navbar" align="center">
+    <a onclick="history.back()" class="active">Back</a>
+    <button type="button" class="button button1" onclick="webcamOn()">Video On</button>
+    <button type="button" class="button button1" onclick="webcamOff()">Video Off</button>
+    <button type="button" class="button button1"onclick="micOn()">Mic On</button>
+    <button type="button" class="button button1" onclick="micOff()">Mic Off</button>
   </div>
 
   <script type="text/javascript">
     start();
+  </script>
+  <script type="text/javascript">
+    function webcamOff(){
+      var stream = document.getElementById("localVideo").srcObject;
+      const tracks = stream.getTracks();
+
+      console.log(tracks);
+      //tracks[0].enabled = false;
+
+      tracks.forEach(function(track){
+        console.log(track.kind);
+        if(track.kind === "video")
+          track.enabled = false;
+      });
+    }
+    function webcamOn(){
+      var stream = document.getElementById("localVideo").srcObject;
+      const tracks = stream.getTracks();
+      //
+      // tracks[0].enabled = true;
+      tracks.forEach(function(track){
+        if(track.kind === "video")
+            track.enabled = true;
+      });
+    }
+
+    function micOff(){
+      var stream = document.getElementById("localVideo").srcObject;
+      const tracks = stream.getTracks();
+
+      console.log(tracks);
+      //tracks[0].enabled = false;
+
+      tracks.forEach(function(track){
+        console.log(track.kind);
+        if(track.kind === "audio"){
+          track.enabled = false;
+          alert("Mic disabled");
+        }
+
+      });
+    }
+    function micOn(){
+      var stream = document.getElementById("localVideo").srcObject;
+      const tracks = stream.getTracks();
+      //
+      // tracks[0].enabled = true;
+      tracks.forEach(function(track){
+        if(track.kind === "audio"){
+          track.enabled = true;
+          alert("Mic enabled");
+        }
+
+      });
+    }
   </script>
 
 </body>
