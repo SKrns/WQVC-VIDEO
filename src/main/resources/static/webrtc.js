@@ -6,6 +6,7 @@ var localStream;
 var serverConnection;
 var room;
 var peerConnections = {}; // key is uuid, values are peer connection object and user defined display name string
+var remoteStream = [];
 
 var peerConnectionConfig = {
   'iceServers': [
@@ -22,6 +23,8 @@ function start() {
   var urlParams = new URLSearchParams(window.location.search);
   room = urlParams.get('roomName') || prompt('Enter room name','guestRoom');
   localDisplayName = urlParams.get('userName') || prompt('Enter your name', 'guest');
+
+
   document.getElementById('localVideoContainer').appendChild(makeLabel(localDisplayName));
 
   // specify no audio for user media
@@ -31,7 +34,7 @@ function start() {
       height: {max: 240},
       frameRate: {max: 30},
     },
-    audio: false,
+    audio: true,
   };
 
   // set up local video stream
@@ -86,6 +89,8 @@ function gotMessageFromServer(message) {
 }
 
 function setUpPeer(peerUuid, displayName, initCall = false) {
+
+
   peerConnections[peerUuid] = { 'displayName': displayName, 'pc': new RTCPeerConnection(peerConnectionConfig) };
   peerConnections[peerUuid].pc.onicecandidate = event => gotIceCandidate(event, peerUuid);
   peerConnections[peerUuid].pc.ontrack = event => gotRemoteStream(event, peerUuid);
@@ -111,7 +116,14 @@ function createdDescription(description, peerUuid) {
 }
 
 function gotRemoteStream(event, peerUuid) {
+
+  for(const i in remoteStream){
+    if(remoteStream[i] === peerUuid){
+      return;
+    }
+  }
   console.log(`got remote stream, peer ${peerUuid}`);
+  remoteStream.push(peerUuid);
   //assign stream to new HTML video element
   var vidElement = document.createElement('video');
   vidElement.setAttribute('autoplay', '');
@@ -126,7 +138,7 @@ function gotRemoteStream(event, peerUuid) {
 
   document.getElementById('videos').appendChild(vidContainer);
 
-  updateLayout();
+  //updateLayout();
 }
 
 function checkPeerDisconnect(event, peerUuid) {
@@ -135,7 +147,7 @@ function checkPeerDisconnect(event, peerUuid) {
   if (state === "failed" || state === "closed" || state === "disconnected") {
     delete peerConnections[peerUuid];
     document.getElementById('videos').removeChild(document.getElementById('remoteVideo_' + peerUuid));
-    updateLayout();
+    //updateLayout();
   }
 }
 

@@ -1,6 +1,6 @@
 :root {
-    --rowHeight: 98vh;
-    --colWidth: 98vw;
+    --rowHeight: 32vh;
+    --colWidth: 32vw;
   }
 
   body{
@@ -12,24 +12,27 @@
       display: grid;
       grid-gap: 5px;
       grid-auto-flow: row;
-      
+
       grid-template-columns: repeat(auto-fit, minmax(var(--colWidth), 1fr)) ;
   }
   
   .videoContainer {
       position: relative;
       overflow: hidden;
-      
+
+
+      height: auto;
+      width: 25%;
       min-height: var(--rowHeight);
       min-width: var(--colWidth);
       
   }
   
   .videoContainer video {
-  
+
       position: absolute;
       left: 0;
-      bottom: 0;
+      bottom: 5%;
       height: auto;
       width: 100%;
   }
@@ -44,6 +47,6 @@
       
       position: absolute;
       left: 0;
-      bottom: 0;
+      bottom: 5%;
       padding: 4px;
   }
