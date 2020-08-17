@@ -1,4 +1,4 @@
-const WS_PORT = 8080; //make sure this matches the port for the webscokets server
+const WS_PORT = 7001; //make sure this matches the port for the webscokets server
 
 var localUuid;
 var localDisplayName;

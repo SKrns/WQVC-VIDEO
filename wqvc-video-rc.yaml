@@ -1,0 +1,92 @@
+# apiVersion: v1
+# kind: ReplicationController
+# metadata:
+#   name: wqvc-video-rc
+# spec:
+#   replicas: 1
+#   selector:
+#     app: wqvc-video
+#   template:
+#     metadata:
+#       name: wqvc-video-pod
+#       labels:
+#         app: wqvc-video
+#     spec:
+#       containers:
+#       - name: wqvc-video
+#         image: rnsk3626/wqvc-video
+#         imagePullPolicy: Always
+#         ports:
+#         - containerPort: 3000
+# ---
+
+#kind: Service
+#apiVersion: v1
+#metadata:
+#  name: feign-service
+#spec:
+#  selector:
+#    app: feign-service
+#  type: ClusterIP
+#  ports:
+#      port: 80
+#      targetPort: 9091
+
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: wqvc-video
+  namespace: ingress-nginx
+spec:
+  selector:
+    app: wqvc-video
+  type: NodePort
+  ports:
+    - nodePort: 30168
+      port: 443
+      targetPort: 8443
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wqvc-video
+  namespace: ingress-nginx
+  labels:
+    app: wqvc-video
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wqvc-video
+  template:
+    metadata:
+      labels:
+        app: wqvc-video
+    spec:
+      containers:
+        - name: wqvc-video
+          image: rnsk3626/wqvc-video
+          ports:
+            - containerPort: 7001
+        - name: wqvc-nginx
+          image: rnsk3626/wqvc-nginx
+          ports:
+            - containerPort: 8443
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wqvc-video-lb
+  namespace: ingress-nginx
+  labels:
+    app: wqvc-video
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 443
+    targetPort: 7001
+    protocol: TCP
+    name: https
+  selector:
+    app: wqvc-video
