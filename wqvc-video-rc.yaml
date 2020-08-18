@@ -88,5 +88,14 @@ spec:
     targetPort: 7001
     protocol: TCP
     name: https
+  - port: 7001
+    targetPort: 7001
+    name: socket
+  - port: 3478
+    targetPort: 3478
+    name: stun
+  - port: 19302
+    targetPort: 19302
+    name: stun2
   selector:
     app: wqvc-video
