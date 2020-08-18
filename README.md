@@ -18,17 +18,14 @@ cd webRTC
 ```
 
 ## 실행방법
-###마이크 및 카메로 허용
-
+### 마이크 및 카메로 허용
 `https://github.com/SKrns/WQVC-AUTH`에서 만든 회의에서 회의 참가를 누른다. 회의 참가를 누르고 다음과 같은 화면에서 카메라 및 마이크를 허용한다.
 ![1](images/1.png)
 
-###카메라 조절
-
+### 카메라 조절
 카메라를 끄고 싶은 상황이 있을 경우 아래의 버튼들 중 Video off를 누르면 된다. 반면, 카메라를 다시 키고 싶을 경우, Video On을 누르면 된다.
 ![mic](images/off.png)
 
 ### 마이크 조절
-
 마이크 조절 역시 키고 싶으면 audio on, 끄고 싶은 경우 audion off를 누르면 된다.
 ![audio](images/audio_off.png)
