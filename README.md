@@ -26,8 +26,6 @@ docker run --link [유레카 컨테이너 이름] -p 7001:7001 -t [생성한 이
 
 `git clone https://github.com/SKrns/WQVC-VIDEO.git`.
 
-application.properties에 `eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/`을 추가한다.
-
 레포지토리를 다운로드 한후, src/main/java/com/pororo/webrtc/WebrtcApplication.java를 실행시킨다.
 
 ```
