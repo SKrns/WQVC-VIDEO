@@ -2,7 +2,7 @@
 WQVC(WebRTC-QUIC Video Conference)의 Video Conference 마이크로서비스.
 
 ## 사전 설치 요구사항
-위 프로그램을 사용하기 전에 `https://github.com/SKrns/WQVC-AUTH`를 설치해야한다.
+위 서비스를 사용하기 전에 `https://github.com/SKrns/WQVC-AUTH`와 `https://github.com/Pororo-droid/WQVC-eurkeaServer`가 필요하다.
 
 ## 설치 방법
 ### 1) 컨테이너 실행
@@ -27,6 +27,7 @@ docker run --link [유레카 컨테이너 이름] -p 7001:7001 -t [생성한 이
 `git clone https://github.com/SKrns/WQVC-VIDEO.git`.
 
 레포지토리를 다운로드 한후, src/main/java/com/pororo/webrtc/WebrtcApplication.java를 실행시킨다.
+로컬 접속은 `https://localhost:7001/index.html`또는 `https://localhost:7001/index.html?roomName=[방 id]&userName=[유저 이름]`으로 시작한다.
 
 ```
 cd WQVC-VIDEO/

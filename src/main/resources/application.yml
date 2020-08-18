@@ -11,8 +11,13 @@ eureka:
     preferIpAddress: true
     # The hostname of the service, to register the pod and turn it easier for the gateway to find it
     hostname: wqvc-video
+    nonSecurePortEnabled: false
+    ecurePortEnabled: true
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
+      statusPageUrl: 'https://${eureka.instance.hostName}:${server.port}/info'
+      healthCheckUrl: 'https://${eureka.instance.hostName}:${server.port}/health'
+      homePageUrl: 'https://${eureka.instance.hostName}:${server.port}/'
       defaultZone: http://eureka-0.eureka.default.svc.cluster.local:8761/eureka,http://eureka-1.eureka.default.svc.cluster.local:8761/eureka,http://eureka-2.eureka.default.svc.cluster.local:8761/eureka
